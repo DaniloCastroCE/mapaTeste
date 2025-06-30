@@ -1,0 +1,211 @@
+.botaoSvg {
+    width: 38px;
+    height: 38px;
+}
+
+.botao {
+    cursor: pointer;
+}
+
+.botao svg {
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+}
+
+.slide {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: -400px;
+    min-width: 375px;
+    max-width: 375px;
+    height: calc(100vh - 12px);
+    z-index: 999;
+    background-color: white;
+    transition: right 0.5s ease;
+    
+}
+
+.moveSlide {
+    right: 0;
+}
+
+#slide-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#slide-close svg{
+    cursor: pointer;
+}
+
+#slide-titulo{
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+    padding: 30px 5px 10px;
+}
+
+#slide-conteudo {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 20px;
+    height: calc(100% - 35px);
+}
+
+#slide-conteudo p {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.btnOneCond {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#slide-conteudo a {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#listaCond{
+    overflow: auto;
+    height: calc(100% - 100px);
+}
+
+.boxExibirP {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.boxExibirP span {
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    width: 19px;
+    height: 19px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.pExibir {
+    text-align: left !important;
+    padding: 10px 5px 10px 10px;
+    font-size: 18px;
+    width: 100%;
+}
+
+.pExibir:hover {
+    background-color: rgba(0,0,0,0.3);
+    cursor: pointer;
+   
+}
+
+.pExibir:active {
+    background-color: rgba(144,238,144,0.3);
+    
+}
+
+.trashLista {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    border-radius: 50px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.trashLista:hover {
+    background-color: rgba(255,0,0,0.9);
+    fill: white;
+    cursor: pointer;
+}
+
+.btnExibir {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 5px;
+}
+
+.painelFerramentas {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    top: 6px;
+    left: 50px;
+    z-index: 999;
+    padding: 2px;
+    width: auto;
+}
+
+.painelFerramentas input {
+    padding: 5px 2px;
+    height: 35px;
+    font-size: 20px;
+    min-width: 270px;
+    max-width: 370px;
+    width: 100%;
+}
+
+.painelFerramentas #ulBuscar {
+    overflow: auto;
+    max-height: calc(100vh - 55px);
+    min-width: 270px;
+    max-width: 370px;
+    width: 100%;
+    background-color: white;
+    list-style: none;
+}
+
+.painelFerramentas #ulBuscar li {
+    width: 100%;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+.painelFerramentas #ulBuscar li:hover{
+    cursor: pointer;
+    background-color: rgb(230,230,230);
+}
+
+.painelFerramentas #ulBuscar li:last-of-type {
+    margin-bottom: 0;
+}
+
+.botaoPainel {
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botaoPainel svg {
+    width: 100%;
+    height: 100%;
+}
+
+.mudarCorSVGBTN {
+    fill: #273b6e;
+}
