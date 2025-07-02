@@ -405,6 +405,7 @@ function carregarComTentativas() {
     .then((result) => {
       if (result.status === 'success') {
         init();
+        console.log(`Atualizou as informações do mapa com sucesso ! (${tentativas})`)
         loading.out();
       }
       else if (result.status === "error") {
