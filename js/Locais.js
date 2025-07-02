@@ -5292,20 +5292,29 @@ class Local {
         try {
             const response = await fetch('https://3n44fs-3000.csb.app/getCondominios')
             const result = await response.json()
-            this.locais = result.condominios
-            console.log(this.getCountCond())
-            return {
-              status: "success",
-              message: "mapa atualizou"
+
+            if(result.condominios){
+              this.locais = result.condominios
+              console.log(this.getCountCond())
+              return {
+                status: "success",
+                message: "mapa atualizou"
+              }
+            } else {
+              this.locais = this.locaisAux
+              return {
+              status: "error",
+              message: "mapa não atualizou"
             }
+            }
+
 
             
         } catch (error) {
             this.locais = this.locaisAux
-            console.log(this.getCountCond())
+            //console.log(this.getCountCond())
             console.error("Erro: ", error)
-            //alert('Não Atualizou o mapa !\nAconselho que vocÊ aperte o F5, para atualizar a pagina')
-            console.log(this.locais)
+            //console.log(this.locais)
 
             return {
               status: "error",

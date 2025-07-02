@@ -403,33 +403,45 @@ function carregarComTentativas() {
 
   locais.carregarLocaisApi()
     .then((result) => {
+      if (!result) {
+        console.error("A resposta da API não retornou um objeto válido!");
+        return;
+      }
+
       if (result.status === 'success') {
         init();
-        console.log(`Atualizou as informações do mapa com sucesso ! (${tentativas})`)
         loading.out();
-      }
-      else if (result.status === "error") {
+      } else if (result.status === "error") {
         tentativas--;
         if (tentativas > 0) {
           console.log(`Tentativa de atualizar o mapa falhou.\nTentativas restantes: ${tentativas}`);
           alert(`Tentativa de atualizar o mapa falhou.\nTentativas restantes: ${tentativas}`);
-
           setTimeout(() => {
               carregarComTentativas();
-          }, 3000)
-
+          }, 3500)
         } else {
           console.log('Número máximo de tentativas atingido.');
-          alert(`Número máximo de tentativas atingido.\n\nO mapa não atualizou\nUlima atualização: ${last_update}`);
+          alert(`Número máximo de tentativas atingido.\n\nO mapa não foi atualizado.\nÚltima atualização realizada em: ${last_update}`);
           init();
-          loading.out(); 
+          loading.out();
         }
       }
     })
     .catch((err) => {
-      console.error(err);
-      alert('Error: ' + err);
-      loading.out();
+      console.error("Erro de rede ou exceção: ", err);
+      tentativas--;
+      if (tentativas > 0) {
+        console.log(`Tentativa de atualizar o mapa falhou por erro de rede.\nTentativas restantes: ${tentativas}`);
+        alert(`Tentativa de atualizar o mapa falhou por erro de rede.\nTentativas restantes: ${tentativas}`);
+        setTimeout(() => {
+              carregarComTentativas();
+          }, 3000)
+      } else {
+        console.log('Número máximo de tentativas atingido.');
+        alert(`Número máximo de tentativas atingido.\n\nO mapa não foi atualizado.\nÚltima atualização realizada em: ${last_update}`);
+        init();
+        loading.out();
+      }
     });
 }
 
