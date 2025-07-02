@@ -410,6 +410,7 @@ function carregarComTentativas() {
 
       if (result.status === 'success') {
         init();
+        console.log(`O mapa Atualizou com sucesso ! (${tentativas})`)
         loading.out();
       } else if (result.status === "error") {
         tentativas--;
