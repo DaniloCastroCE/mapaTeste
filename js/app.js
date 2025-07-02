@@ -1,3 +1,4 @@
+const last_update = "30/06/2025"
 const loading = new Loading('loading')
 const mapa = new Mapa([-3.74565, -38.51723], 14, new GeoJson())
 const locais = new Local()
@@ -12,7 +13,7 @@ const teste_TranformarArrayEmCopy = () => {
 }
 
 const init = () => {
-    mapa.addMultMaker( locais.locais, (obj) => onclickMarker(obj))
+    mapa.addMultMaker(locais.locais, (obj) => onclickMarker(obj))
     addRemBairros()
     document.querySelector('#inp-buscar').addEventListener('input', (e) => {
         const ulBuscar = document.querySelector('#ulBuscar')
@@ -22,7 +23,7 @@ const init = () => {
         } else {
 
             if (e.target.value.length >= 2) {
-                const arrayBuscaLocais = locais.locais.filter(local => 
+                const arrayBuscaLocais = locais.locais.filter(local =>
                     local.nomeSimplificado.includes(e.target.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim())
                 )
 
@@ -330,7 +331,7 @@ const deletaItemLista = (index) => {
 const onclickCopy = (idMarker) => {
     const local = locais.getLocalIdMarker(idMarker)
     let copy =
-`*${local.nome}*
+        `*${local.nome}*
 Endereço: ${local.end.rua}, ${local.end.num} - ${local.end.bairro}
 `
     navigator.clipboard.writeText(copy)
@@ -395,12 +396,41 @@ const onclickBtnExibir = (op) => {
     }
 }
 
-loading.in()
-locais.carregarLocaisApi().then(() => {
-    init() // Inicador
-    loading.out()
-}).catch((err) => {
-    console.error(err)
-    init()
-    loading.out()
-})
+let tentativas = 3;
+
+function carregarComTentativas() {
+  loading.in();
+
+  locais.carregarLocaisApi()
+    .then((result) => {
+      if (result.status === 'success') {
+        init();
+        loading.out();
+      }
+      else if (result.status === "error") {
+        tentativas--;
+        if (tentativas > 0) {
+          console.log(`Tentativa de atualizar o mapa falhou.\nTentativas restantes: ${tentativas}`);
+          alert(`Tentativa de atualizar o mapa falhou.\nTentativas restantes: ${tentativas}`);
+
+          setTimeout(() => {
+              carregarComTentativas();
+          }, 3000)
+
+        } else {
+          console.log('Número máximo de tentativas atingido.');
+          alert(`Número máximo de tentativas atingido.\n\nO mapa não atualizou\nUlima atualização: ${last_update}`);
+          init();
+          loading.out(); 
+        }
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      alert('Error: ' + err);
+      loading.out();
+    });
+}
+
+carregarComTentativas();
+
